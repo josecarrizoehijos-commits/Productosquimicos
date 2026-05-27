@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Química del Piletero – Jose Carrizo e Hijos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-deep: #020d1f;
+    --blue-dark: #041428;
+    --blue-mid: #0a2a50;
+    --blue-primary: #0d4a8f;
+    --blue-bright: #1565d8;
+    --blue-neon: #2196f3;
+    --blue-glow: #4fc3f7;
+    --cyan-glow: #00e5ff;
+    --white: #ffffff;
+    --text-muted: rgba(255,255,255,0.65);
+    --gold: #ffd700;
+    --green: #00e676;
+    --orange: #ff6b35;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blue-deep);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-x: hidden;
+    padding: 40px 0 60px;
+  }
+
+  .bg-grid {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(13,74,143,0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(13,74,143,0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0; pointer-events: none;
+  }
+  .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.15; animation: orbFloat 20s ease-in-out infinite; }
+  .orb-1 { width: 500px; height: 500px; background: var(--blue-bright); top: -150px; right: -100px; animation-delay: 0s; }
+  .orb-2 { width: 400px; height: 400px; background: var(--cyan-glow); bottom: -100px; left: -100px; animation-delay: -8s; }
+  .orb-3 { width: 300px; height: 300px; background: var(--blue-neon); top: 50%; left: 40%; animation-delay: -15s; }
+  @keyframes orbFloat {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(25px,-25px) scale(1.05); }
+    66% { transform: translate(-15px,15px) scale(0.95); }
+  }
+
+  /* CARD */
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+    padding: 48px 28px 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* LOGO + HEADER */
+  .logo-wrap {
+    margin-bottom: 20px;
+    animation: fadeInDown 0.8s ease both;
+    position: relative;
+  }
+  .logo-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue-glow), transparent);
+  }
+  .logo-img {
+    width: 200px;
+    filter: drop-shadow(0 0 24px rgba(33,150,243,0.5));
+  }
+
+  .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    background: linear-gradient(180deg, #fff 0%, #90caf9 60%, var(--blue-bright) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 16px rgba(33,150,243,0.4));
+    margin-top: 20px;
+    margin-bottom: 4px;
+    letter-spacing: 2px;
+    animation: fadeInUp 0.9s ease 0.1s both;
+  }
+  .tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--blue-glow);
+    margin-bottom: 10px;
+    animation: fadeInUp 0.9s ease 0.2s both;
+  }
+
+  /* TITULO DE GUÍA */
+  .guia-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 4px;
+    animation: fadeInUp 0.9s ease 0.25s both;
+  }
+  .guia-subtitulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeInUp 0.9s ease 0.3s both;
+  }
+
+  /* REGLA DE ORO */
+  .regla-oro {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,107,53,0.08));
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeInUp 0.7s ease 0.35s both;
+  }
+  .regla-icono { font-size: 24px; flex-shrink: 0; }
+  .regla-texto {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+  .regla-texto span {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    color: rgba(255,215,0,0.7);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-top: 2px;
+  }
+
+  /* SECCIÓN TÍTULO */
+  .seccion-titulo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    margin-top: 8px;
+  }
+  .seccion-titulo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--blue-glow);
+    white-space: nowrap;
+  }
+  .seccion-linea {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(79,195,247,0.4), transparent);
+  }
+
+  /* PRODUCTOS */
+  .productos-lista {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .producto-card {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(79,195,247,0.15);
+    background: linear-gradient(135deg, rgba(10,42,80,0.6), rgba(4,20,40,0.75));
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .producto-card:hover {
+    border-color: rgba(79,195,247,0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(21,101,216,0.25);
+  }
+
+  .producto-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    gap: 14px;
+  }
+  .producto-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .producto-icono {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .producto-info { flex: 1; }
+  .producto-nombre {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .producto-badge {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .producto-chevron {
+    color: var(--blue-glow);
+    opacity: 0.6;
+    transition: transform 0.3s, opacity 0.3s;
+    flex-shrink: 0;
+  }
+  .producto-card.open .producto-chevron { transform: rotate(180deg); opacity: 1; }
+
+  .producto-body {
+    display: none;
+    padding: 0 20px 18px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .producto-card.open .producto-body { display: flex; }
+
+  .producto-sep {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(79,195,247,0.2), transparent);
+    margin-bottom: 4px;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .info-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue-glow);
+    min-width: 64px;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+  .info-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.55;
+  }
+
+  .tip-box {
+    background: rgba(255,215,0,0.07);
+    border-left: 3px solid rgba(255,215,0,0.4);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-top: 4px;
+  }
+  .tip-box p {
+    font-family: 'Barlow', sans-serif;
+    font-size: 12.5px;
+    color: rgba(255,215,0,0.85);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  /* Colores variantes por producto */
+  .p-ph-menos .producto-icono { background: rgba(33,150,243,0.12); border: 1px solid rgba(33,150,243,0.25); }
+  .p-ph-menos { border-color: rgba(33,150,243,0.2); }
+
+  .p-ph-mas .producto-icono { background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.2); }
+  .p-ph-mas { border-color: rgba(0,230,118,0.2); }
+  .p-ph-mas .producto-chevron { color: var(--green); }
+
+  .p-cloro-gran .producto-icono { background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.2); }
+  .p-cloro-gran { border-color: rgba(0,229,255,0.2); }
+  .p-cloro-gran .producto-chevron { color: var(--cyan-glow); }
+  .p-cloro-gran .info-label { color: var(--cyan-glow); }
+
+  .p-cloro-past .producto-icono { background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.18); }
+  .p-cloro-past { border-color: rgba(255,215,0,0.18); }
+  .p-cloro-past .producto-chevron { color: var(--gold); }
+  .p-cloro-past .info-label { color: var(--gold); }
+
+  .p-algicida .producto-icono { background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.2); }
+  .p-algicida { border-color: rgba(255,107,53,0.2); }
+  .p-algicida .producto-chevron { color: var(--orange); }
+  .p-algicida .info-label { color: var(--orange); }
+
+  .p-floculante .producto-icono { background: rgba(179,136,255,0.1); border: 1px solid rgba(179,136,255,0.2); }
+  .p-floculante { border-color: rgba(179,136,255,0.2); }
+  .p-floculante:hover { border-color: rgba(179,136,255,0.4); box-shadow: 0 8px 32px rgba(179,136,255,0.1); }
+  .p-floculante .producto-chevron { color: #b388ff; }
+  .p-floculante .info-label { color: #b388ff; }
+
+  /* TABLA */
+  .tabla-wrap {
+    width: 100%;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid rgba(79,195,247,0.15);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 420px;
+  }
+  thead tr {
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-mid));
+  }
+  thead th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue-glow);
+    padding: 13px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(79,195,247,0.2);
+  }
+  thead th:first-child { text-align: left; padding-left: 16px; color: var(--white); }
+
+  tbody tr { transition: background 0.2s; }
+  tbody tr:nth-child(even) { background: rgba(10,42,80,0.4); }
+  tbody tr:nth-child(odd) { background: rgba(4,20,40,0.3); }
+  tbody tr:hover { background: rgba(21,101,216,0.15); }
+
+  tbody td {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    padding: 11px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(79,195,247,0.07);
+  }
+  tbody td:first-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--white);
+    text-align: left;
+    padding-left: 16px;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .tabla-nota {
+    width: 100%;
+    font-family: 'Barlow', sans-serif;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    padding: 0 4px;
+  }
+  .tabla-nota p { margin-bottom: 3px; }
+  .tabla-nota p::before { content: "* "; color: var(--blue-glow); }
+
+  /* ORDEN DE APLICACIÓN */
+  .orden-lista {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .orden-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(10,42,80,0.55), rgba(4,20,40,0.65));
+    border: 1px solid rgba(79,195,247,0.1);
+    transition: all 0.2s;
+  }
+  .orden-item:hover {
+    border-color: rgba(79,195,247,0.3);
+    background: linear-gradient(135deg, rgba(13,74,143,0.4), rgba(10,42,80,0.6));
+  }
+  .orden-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-bright));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--white);
+    flex-shrink: 0;
+    box-shadow: 0 0 12px rgba(21,101,216,0.3);
+  }
+  .orden-texto {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+  }
+  .orden-texto strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* CHOQUE BOX */
+  .choque-box {
+    width: 100%;
+    background: linear-gradient(135deg, rgba(0,229,255,0.07), rgba(21,101,216,0.07));
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 28px;
+    animation: fadeInUp 0.7s ease 0.5s both;
+  }
+  .choque-titulo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan-glow);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .choque-texto {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .cta-box {
+    width: 100%;
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-mid));
+    border: 1px solid rgba(79,195,247,0.2);
+    border-radius: 16px;
+    padding: 24px 22px;
+    text-align: center;
+    margin-bottom: 8px;
+    animation: fadeInUp 0.7s ease 0.6s both;
+  }
+  .cta-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .cta-texto {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--blue-bright), var(--blue-neon));
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(21,101,216,0.4);
+  }
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(21,101,216,0.55);
+  }
+
+  /* FOOTER */
+  .footer-text {
+    margin-top: 32px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    animation: fadeIn 1s ease 0.8s both;
+  }
+  .footer-text span { color: rgba(79,195,247,0.4); }
+
+  /* ANIMATIONS */
+  @keyframes fadeInDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+  .productos-lista .producto-card:nth-child(1) { animation: fadeInUp 0.6s ease 0.3s both; }
+  .productos-lista .producto-card:nth-child(2) { animation: fadeInUp 0.6s ease 0.38s both; }
+  .productos-lista .producto-card:nth-child(3) { animation: fadeInUp 0.6s ease 0.46s both; }
+  .productos-lista .producto-card:nth-child(4) { animation: fadeInUp 0.6s ease 0.54s both; }
+  .productos-lista .producto-card:nth-child(5) { animation: fadeInUp 0.6s ease 0.62s both; }
+
+  .orden-lista .orden-item:nth-child(1) { animation: fadeInUp 0.5s ease 0.3s both; }
+  .orden-lista .orden-item:nth-child(2) { animation: fadeInUp 0.5s ease 0.36s both; }
+  .orden-lista .orden-item:nth-child(3) { animation: fadeInUp 0.5s ease 0.42s both; }
+  .orden-lista .orden-item:nth-child(4) { animation: fadeInUp 0.5s ease 0.48s both; }
+  .orden-lista .orden-item:nth-child(5) { animation: fadeInUp 0.5s ease 0.54s both; }
+  .orden-lista .orden-item:nth-child(6) { animation: fadeInUp 0.5s ease 0.60s both; }
+
+  @media (max-width: 500px) {
+    .card { padding: 36px 16px 44px; }
+    .logo-img { width: 160px; }
+    .name { font-size: 30px; }
+    .guia-titulo { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="logo-wrap">
+    <img class="logo-img" src="887D2479-5555-451D-99E9-E25BA90806A2.png" alt="Jose Carrizo e Hijos">
+  </div>
+  <div class="name">Jose Carrizo e Hijos</div>
+  <div class="tagline">🏊 El Piletero</div>
+
+  <div class="guia-titulo">Guía de Productos Químicos</div>
+  <div class="guia-subtitulo">30 años de experiencia resumidos en esta guía</div>
+
+  <!-- REGLA DE ORO -->
+  <div class="regla-oro">
+    <div class="regla-icono">⚠️</div>
+    <div class="regla-texto">
+      La regla de oro
+      <span>Siempre medí antes de tirar cualquier producto. Sin medir, estás adivinando — y adivinar sale caro.</span>
+    </div>
+  </div>
+
+  <!-- PRODUCTOS -->
+  <div class="seccion-titulo">
+    <div class="seccion-titulo-text">Los productos básicos</div>
+    <div class="seccion-linea"></div>
+  </div>
+
+  <div class="productos-lista">
+
+    <!-- pH MENOS -->
+    <div class="producto-card p-ph-menos" onclick="toggle(this)">
+      <div class="producto-header">
+        <div class="producto-left">
+          <div class="producto-icono">🔵</div>
+          <div class="producto-info">
+            <div class="producto-nombre">pH Menos</div>
+            <div class="producto-badge">Reductor de pH · Baja el pH cuando está muy alto</div>
+          </div>
+        </div>
+        <svg class="producto-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="producto-body">
+        <div class="producto-sep"></div>
+        <div class="info-row">
+          <div class="info-label">¿Qué es?</div>
+          <div class="info-text">Baja el pH del agua cuando está demasiado alto. El pH ideal es entre 7.2 y 7.6. Si está por arriba de 7.6, el cloro pierde efectividad aunque tires mucho.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cuándo?</div>
+          <div class="info-text">Cuando el testeador indica pH por encima de 7.6.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cómo?</div>
+          <div class="info-text">Disolvé siempre en un balde con agua antes de volcar a la pileta. Nunca directo sobre el liner. Con la bomba andando.</div>
+        </div>
+        <div class="tip-box">
+          <p>💡 Tip de José: Si bajás mucho el pH de golpe, el agua se vuelve agresiva y puede irritar ojos y piel. Bajalo de a poco y volvé a medir.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- pH MÁS -->
+    <div class="producto-card p-ph-mas" onclick="toggle(this)">
+      <div class="producto-header">
+        <div class="producto-left">
+          <div class="producto-icono">🟢</div>
+          <div class="producto-info">
+            <div class="producto-nombre">pH Más</div>
+            <div class="producto-badge">Elevador de pH · Sube el pH cuando está muy bajo</div>
+          </div>
+        </div>
+        <svg class="producto-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="producto-body">
+        <div class="producto-sep"></div>
+        <div class="info-row">
+          <div class="info-label">¿Qué es?</div>
+          <div class="info-text">Sube el pH cuando está muy bajo. Si baja de 7.2, el agua se vuelve corrosiva: ataca el liner, las partes metálicas e irrita la piel de quienes se bañan.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cuándo?</div>
+          <div class="info-text">Cuando el testeador indica pH por debajo de 7.2.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cómo?</div>
+          <div class="info-text">Disolvé en balde con agua y volcá con la bomba andando. Esperá al menos 4 horas antes de volver a medir.</div>
+        </div>
+        <div class="tip-box">
+          <p>💡 Tip de José: El pH es lo primero que tenés que corregir antes de tirar cloro. Si el pH está mal, el cloro no sirve — estás tirando plata al agua.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLORO GRANULADO -->
+    <div class="producto-card p-cloro-gran" onclick="toggle(this)">
+      <div class="producto-header">
+        <div class="producto-left">
+          <div class="producto-icono">💧</div>
+          <div class="producto-info">
+            <div class="producto-nombre">Cloro Granulado</div>
+            <div class="producto-badge">Desinfectante de acción rápida · Mantenimiento y choque</div>
+          </div>
+        </div>
+        <svg class="producto-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="producto-body">
+        <div class="producto-sep"></div>
+        <div class="info-row">
+          <div class="info-label">¿Qué es?</div>
+          <div class="info-text">La forma más rápida de subir el nivel de cloro en el agua. Ideal para el mantenimiento semanal y para los tratamientos de choque cuando la pileta está verde.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cuándo?</div>
+          <div class="info-text">Para mantenimiento regular o para recuperar una pileta verde (choque de cloro).</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cómo?</div>
+          <div class="info-text">Disolvé en balde con agua. Nunca mezclar con otros productos. Volcá con la bomba andando, distribuido por todo el perímetro.</div>
+        </div>
+        <div class="tip-box">
+          <p>💡 Tip de José: Para un choque de cloro, doblá o triplicá la dosis normal. Hacelo de noche — el sol destruye el cloro libre muy rápido.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLORO PASTILLAS -->
+    <div class="producto-card p-cloro-past" onclick="toggle(this)">
+      <div class="producto-header">
+        <div class="producto-left">
+          <div class="producto-icono">⭐</div>
+          <div class="producto-info">
+            <div class="producto-nombre">Cloro en Pastillas</div>
+            <div class="producto-badge">Liberación lenta · Mantenimiento diario continuo</div>
+          </div>
+        </div>
+        <svg class="producto-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="producto-body">
+        <div class="producto-sep"></div>
+        <div class="info-row">
+          <div class="info-label">¿Qué es?</div>
+          <div class="info-text">Pastillas de liberación lenta que mantienen el nivel de cloro estable durante varios días. No reemplazan al cloro granulado, sino que lo complementan.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cuándo?</div>
+          <div class="info-text">Para mantenimiento diario entre un mantenimiento y el siguiente. Se usan en un flotador o en el skimmer.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cómo?</div>
+          <div class="info-text">Colocalas en el flotador y dejá que se disuelvan solas. Revisá cada 3–4 días si queda pastilla.</div>
+        </div>
+        <div class="tip-box">
+          <p>💡 Tip de José: Las pastillas no son suficientes solas. Son un complemento. El mantenimiento con cloro granulado y medición sigue siendo necesario.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALGICIDA -->
+    <div class="producto-card p-algicida" onclick="toggle(this)">
+      <div class="producto-header">
+        <div class="producto-left">
+          <div class="producto-icono">🟠</div>
+          <div class="producto-info">
+            <div class="producto-nombre">Algicida</div>
+            <div class="producto-badge">Previene y elimina algas · Uso semanal preventivo</div>
+          </div>
+        </div>
+        <svg class="producto-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="producto-body">
+        <div class="producto-sep"></div>
+        <div class="info-row">
+          <div class="info-label">¿Qué es?</div>
+          <div class="info-text">Previene y elimina las algas, las responsables de que el agua se ponga verde. No reemplaza al cloro — trabajan juntos.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cuándo?</div>
+          <div class="info-text">Como preventivo: una vez por semana. Como curativo: cuando el agua empieza a ponerse turbia o verdosa.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cómo?</div>
+          <div class="info-text">Volcalo directamente al agua con la bomba andando, distribuido por el perímetro. No hace falta disolverlo antes.</div>
+        </div>
+        <div class="tip-box">
+          <p>💡 Tip de José: Usar algicida de forma preventiva es mucho más barato que usarlo para recuperar una pileta verde. Una cucharada por semana te ahorra horas de trabajo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLOCULANTE / CLARIFICADOR -->
+    <div class="producto-card p-floculante" onclick="toggle(this)">
+      <div class="producto-header">
+        <div class="producto-left">
+          <div class="producto-icono">🔮</div>
+          <div class="producto-info">
+            <div class="producto-nombre">Floculante / Clarificador</div>
+            <div class="producto-badge">Agrupa partículas finas · Devuelve la transparencia al agua</div>
+          </div>
+        </div>
+        <svg class="producto-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="producto-body">
+        <div class="producto-sep"></div>
+        <div class="info-row">
+          <div class="info-label">¿Qué es?</div>
+          <div class="info-text">El floculante agrupa las partículas muy finas que están suspendidas en el agua y que el filtro no puede atrapar solo. Esas partículas son las que hacen que el agua se vea turbia o con aspecto lechoso aunque el cloro y el pH estén bien. El clarificador hace lo mismo pero en versión más suave y de acción continua.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Diferencia</div>
+          <div class="info-text"><strong style="color:rgba(255,255,255,0.9)">Floculante:</strong> acción rápida y potente. Agrupa las partículas en copos grandes que caen al fondo — después hay que pasar el barrefondo a desperdicio (no al filtro). <strong style="color:rgba(255,255,255,0.9)">Clarificador:</strong> acción más lenta y continua. Las partículas quedan atrapadas en el filtro. Ideal para mantenimiento preventivo.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cuándo?</div>
+          <div class="info-text">Cuando el agua está turbia o con aspecto lechoso y el cloro y pH están correctos. También como preventivo semanal con clarificador líquido.</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">¿Cómo?</div>
+          <div class="info-text">Con floculante: volcalo con la bomba andando, dejá circular 2 horas, apagá la bomba y dejá reposar 24–48 horas para que los copos caigan al fondo. Después pasás el barrefondo en modo desperdicio (bypass del filtro). Con clarificador: volcalo directo al agua con la bomba andando.</div>
+        </div>
+        <div class="tip-box">
+          <p>💡 Tip de José: Si usás floculante, nunca mandés el barrefondo al filtro — vas a arruinar el filtro. Siempre a desperdicio. Y asegurate de que el pH esté corregido antes de aplicarlo, porque si no, no actúa bien.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABLA DE DOSIFICACIÓN -->
+  <div class="seccion-titulo">
+    <div class="seccion-titulo-text">Tabla de dosificación</div>
+    <div class="seccion-linea"></div>
+  </div>
+
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Capacidad</th>
+          <th>pH–<br><small style="font-weight:400;letter-spacing:0">(gr)</small></th>
+          <th>pH+<br><small style="font-weight:400;letter-spacing:0">(gr)</small></th>
+          <th>Cloro Gran.<br><small style="font-weight:400;letter-spacing:0">(gr)</small></th>
+          <th>Pastillas<br><small style="font-weight:400;letter-spacing:0">(unid.)</small></th>
+          <th>Algicida<br><small style="font-weight:400;letter-spacing:0">(ml)</small></th>
+          <th>Floculante<br><small style="font-weight:400;letter-spacing:0">(ml)</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>10.000 L</td><td>100–150</td><td>100–150</td><td>150–200</td><td>1</td><td>100</td></tr>
+        <tr><td>15.000 L</td><td>150–200</td><td>150–200</td><td>200–280</td><td>1–2</td><td>150</td></tr>
+        <tr><td>20.000 L</td><td>200–250</td><td>200–250</td><td>280–350</td><td>2</td><td>200</td></tr>
+        <tr><td>25.000 L</td><td>250–300</td><td>250–300</td><td>350–430</td><td>2</td><td>250</td></tr>
+        <tr><td>30.000 L</td><td>300–380</td><td>300–380</td><td>430–500</td><td>2–3</td><td>300</td></tr>
+        <tr><td>40.000 L</td><td>380–500</td><td>380–500</td><td>500–650</td><td>3</td><td>400</td></tr>
+        <tr><td>50.000 L</td><td>500–620</td><td>500–620</td><td>650–800</td><td>3–4</td><td>500</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tabla-nota">
+    <p>Dosis orientativas para mantenimiento semanal con agua en buen estado y pH corregido.</p>
+    <p>Para choque de cloro (pileta verde): doblá o triplicá la dosis de cloro granulado.</p>
+    <p>pH– y pH+ se dosifican según el desvío del rango ideal (7.2–7.6).</p>
+    <p>Siempre disolvé pH– y pH+ en un balde con agua antes de volcar a la pileta.</p>
+  </div>
+
+  <!-- CHOQUE BOX -->
+  <div class="choque-box">
+    <div class="choque-titulo">💧 Protocolo de choque</div>
+    <div class="choque-texto">
+      Para recuperar una pileta verde en 48 horas: primero retrolavás el filtro y ponés la bomba a full, después pasás el barrefondo completo, y recién cuando el fondo está limpio y el agua en movimiento, medís el pH, lo corregís y hacés el choque de cloro con el doble de dosis. Hacelo de noche para que el sol no destruya el cloro libre.
+    </div>
+  </div>
+
+  <!-- ORDEN DE APLICACIÓN -->
+  <div class="seccion-titulo">
+    <div class="seccion-titulo-text">Orden correcto de aplicación</div>
+    <div class="seccion-linea"></div>
+  </div>
+
+  <div class="orden-lista">
+    <div class="orden-item">
+      <div class="orden-num">1</div>
+      <div class="orden-texto"><strong>Medí el pH</strong> con el testeador antes de hacer cualquier otra cosa.</div>
+    </div>
+    <div class="orden-item">
+      <div class="orden-num">2</div>
+      <div class="orden-texto"><strong>Corregí el pH</strong> (pH– o pH+ según corresponda). Esperá al menos 4 horas y volvé a medir.</div>
+    </div>
+    <div class="orden-item">
+      <div class="orden-num">3</div>
+      <div class="orden-texto"><strong>Medí el cloro libre</strong> una vez que el pH está en rango.</div>
+    </div>
+    <div class="orden-item">
+      <div class="orden-num">4</div>
+      <div class="orden-texto"><strong>Agregá cloro granulado</strong> si el nivel está bajo. Disuelto en balde, con bomba andando.</div>
+    </div>
+    <div class="orden-item">
+      <div class="orden-num">5</div>
+      <div class="orden-texto"><strong>Agregá algicida preventivo</strong> una vez por semana, distribuido por el perímetro.</div>
+    </div>
+    <div class="orden-item">
+      <div class="orden-num">6</div>
+      <div class="orden-texto"><strong>Revisá las pastillas</strong> en el flotador y reponé si es necesario.</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <div class="cta-titulo">¿Querés el sistema completo?</div>
+    <div class="cta-texto">
+      Esta guía cubre los productos, pero el mantenimiento es mucho más que la química.
+      Los 12 Pasos del Piletero es el método completo que José desarrolló en 30 años — desde la inspección inicial hasta el último producto, en el orden exacto.
+    </div>
+    <a href="#" class="btn-cta">
+      📋 Los 12 Pasos del Piletero
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="footer-text">© 2025 <span>Jose Carrizo e Hijos</span></div>
+
+</div>
+
+<script>
+  function toggle(card) {
+    const isOpen = card.classList.contains('open');
+    // Cerrar todos
+    document.querySelectorAll('.producto-card').forEach(c => c.classList.remove('open'));
+    // Abrir el clickeado si no estaba abierto
+    if (!isOpen) card.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
